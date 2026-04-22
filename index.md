@@ -1,5 +1,5 @@
 * TOC
-{:TOC}
+{:toc}
 
 ## Welcome
 Welcome to the Arber Ecology Website! Here, I make available a variety of statistics guides and notebooks, R code, and general walkthroughs of tasks I've completed. 
