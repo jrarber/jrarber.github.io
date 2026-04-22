@@ -7,4 +7,4 @@ Tools and guides for geospatial ecology, forestry, and biostatistics.
 [About Me](about.md)
 
 
-## [Statistical Guides](https://github.com/jrarber/statistics)
+## [Statistical Guides](https://jrarber.github.io/statistics)
