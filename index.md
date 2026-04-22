@@ -5,3 +5,6 @@ Welcome to the Arber Ecology Website! Here, I make available a variety of statis
 Tools and guides for geospatial ecology, forestry, and biostatistics. 
 
 [About Me](about.md)
+
+
+## [Statistical Guides](/../statistics)
