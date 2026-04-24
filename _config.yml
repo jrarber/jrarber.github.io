@@ -1,5 +1,5 @@
 title: Arber Ecology
-remote_theme: jrarber/minimal-mistakes
+remote_theme: mmistakes/minimal-mistakes
 plugins: 
   - jekyll-remote-theme
   
