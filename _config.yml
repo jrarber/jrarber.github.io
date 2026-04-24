@@ -1,2 +1,4 @@
 title: Arber Ecology
 remote_theme: jrarber/minimal-mistakes
+plugins: 
+  - jekyll-remote-theme
