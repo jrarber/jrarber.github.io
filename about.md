@@ -9,15 +9,6 @@ I am an ecology master's student at the University of Central Arkansas. My inter
 [Google Scholar](https://scholar.google.com/citations?user=YbJ2SEkAAAAJ&hl=en&oi=ao)
 
 
-## Projects 
-### Southeast Swamp Delineation 
-
-
-### Functional Diversity of Arkansas Floodplain Forests
-
-
-### `arber` R package for forest and spatial ecology
-
 ## Education 
 
 ## Affiliates 
