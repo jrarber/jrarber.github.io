@@ -4,8 +4,13 @@ plugins:
   - jekyll-remote-theme
   - jekyll-include-cache
 
-author: 
-  name : Jacob Arber
-  bio  : >-
-    I am an Arkansas native and naturalist at heart. 
-  location: Arkansas, USA
+author:
+  name   : "Renato Golia"
+  avatar : "/assets/images/rg.jpg"
+  bio    : >-
+    My name is Renato.
+
+    I was born in Naples, Italy but I've been living in Stockholm, Sweden since 2008.
+    I love working with .NET and AWS and to combine the two together.
+    You can read more about me in the [About me](/about/) section.
+  location: "Stockholm, Sweden"
