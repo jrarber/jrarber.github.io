@@ -14,4 +14,10 @@ author:
   location: "Arkansas, USA"
   github: "jrarber"
   links:
+    - label: "Google Scholar"
+      icon:"far fa-fw fw-google-scholar"
+      url: "https://scholar.google.com/citations?user=YbJ2SEkAAAAJ&hl=en&oi=ao"
+    #- label: "CV"
+    #  icon: "far fa-fw fa-file-pdf"
+    #  url: 
     
