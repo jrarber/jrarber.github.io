@@ -18,4 +18,4 @@ Swamps (in the broad sense) are forested wetlands, landscapes where flooding occ
 Hickories (*Carya spp.*) are an important genus across the eastern United States. 
 
 
-## `arber` R package for forest and spatial ecology
+## `arber` R package for forest, soil, and spatial ecology
