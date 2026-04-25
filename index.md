@@ -1,3 +1,7 @@
+---
+author_profile: true
+---
+
 * TOC
 {:toc}
 
