@@ -5,12 +5,11 @@ plugins:
   - jekyll-include-cache
 
 author:
-  name   : "Renato Golia"
-  avatar : "/assets/images/rg.jpg"
+  name   : "Jacob Arber"
   bio    : >-
-    My name is Renato.
-
-    I was born in Naples, Italy but I've been living in Stockholm, Sweden since 2008.
-    I love working with .NET and AWS and to combine the two together.
+    I am an Arkansas native and avid naturalist. 
     You can read more about me in the [About me](/about/) section.
-  location: "Stockholm, Sweden"
+  location: "Arkansas, USA"
+  github: "jrarber"
+  links:
+    
