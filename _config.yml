@@ -17,6 +17,9 @@ author:
     - label: "Google Scholar"
       icon: "fab fa-fw fa-google-scholar"
       url: "https://scholar.google.com/citations?user=YbJ2SEkAAAAJ&hl=en&oi=ao"
+    - label: "iNaturalist"
+      icon: "fas fa-fw fa-leaf"
+      url: "https://www.inaturalist.org/observations?user_id=jarber"
     #- label: "CV"
     #  icon: "far fa-fw fa-file-pdf"
     #  url: 
