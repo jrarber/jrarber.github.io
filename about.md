@@ -14,5 +14,6 @@ I am an ecology master's student at the University of Central Arkansas. My inter
 I graduated high school in 2020 and started my freshman year of college at a liberal arts school. After taking a year off, I decided to change both my major and my school. I earned my Bachelor's in Environmental Science, with a concentration in biology, from the University of Central Arkansas in May of 2025. I was also the inaugural recipient of the Environmental Science Honor's in the Major Thesis. 
 
 
+During my undergraduate, I did work in a wide variety of labs. My honor's thesis was done on tree physiological responses to drought. Specifically, we looked at how stomata of two different lowland species were altered in new leaves following both a defoliation and a drought event. 
 
 ## Affiliates 
