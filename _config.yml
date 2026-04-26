@@ -11,7 +11,8 @@ toc: true
 toc_icon: "cog"                  # Optional: overrides default Font Awesome icon
 toc_sticky: true  
 
-
+include: 
+  - statistics.md
 
 
 author:
