@@ -13,7 +13,8 @@ toc_sticky: true
 
 include: 
   - statistics.md
-
+  - "*.nb.html"
+  - "*.html"
 
 author:
   name   : "Jacob Arber"
