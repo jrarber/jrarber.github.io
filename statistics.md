@@ -9,20 +9,20 @@ If you are unfamiliar (or need a refresher), check out the <a href="IntrotoR.nb.
 
 
 # Specific Help Pages
-## <a href="Descriptive Stats.nb.html" title="Descriptive Statistics in R">Descriptive Statistics</a>
+## <a href="stats/Descriptive Stats.nb.html" title="Descriptive Statistics in R">Descriptive Statistics</a>
 
 
-## <a href="Parametrics.nb.html" title="Parametric Tests in R">Parametric Tests</a> 
+## <a href="stats/Parametrics.nb.html" title="Parametric Tests in R">Parametric Tests</a> 
 
 
-## <a href="Multisample-Hypotheses.html" title="Introduction to Multisample Hypotheses">Multisample Hypotheses</a>
+## <a href="stats/Multisample-Hypotheses.html" title="Introduction to Multisample Hypotheses">Multisample Hypotheses</a>
 
 
-## <a href="GLM's.nb.html" title="Generalized Linear Models">Generalized Linear Models</a>
+## <a href="stats/GLM's.nb.html" title="Generalized Linear Models">Generalized Linear Models</a>
 
 
-## <a href="Linear.Mixed.Effects.Models.nb.html" title="Linear Mixed Effects Models">Linear Mixed Effects Models</a>
+## <a href="stats/Linear.Mixed.Effects.Models.nb.html" title="Linear Mixed Effects Models">Linear Mixed Effects Models</a>
 
 
-## <a href="Ranomization_Bootstrapping.nb.html" title="Randomization Tests">Randomization Tests</a>
+## <a href="stats/Ranomization_Bootstrapping.nb.html" title="Randomization Tests">Randomization Tests</a>
 
