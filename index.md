@@ -22,4 +22,4 @@ Welcome to the Arber Ecology Website! I am a graduate student studying forest ec
 
 
 
-## [Statistical Guides](/_data/statistics/)
+## [Statistical Guides](/statistics/)
