@@ -1,6 +1,6 @@
 ---
 title: "Statistics"
-url: "https://jrarber.github.io/statistics/"
+permalink /statistics/
 author_profile: true
 layout: single
 ---
