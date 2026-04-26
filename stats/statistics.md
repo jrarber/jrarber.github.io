@@ -1,6 +1,6 @@
 ---
 title: "Statistics"
-permalink /statistics/
+permalink: /statistics/
 author_profile: true
 layout: single
 ---
