@@ -3,9 +3,8 @@ title: "Statistics"
 permalink: /statistics/
 author_profile: true
 layout: single
+classes: wide
 ---
-
-# Statistics
 
 
 Here is a general overview and workflow guide for statistical analysis in R programming. 
