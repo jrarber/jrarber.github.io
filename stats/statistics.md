@@ -1,5 +1,5 @@
 ---
-permalink: "/statistics/"
+permalink: /statistics/
 ---
 
 # Statistics
