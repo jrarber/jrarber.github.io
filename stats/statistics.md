@@ -1,3 +1,7 @@
+---
+permalink: /statistics/
+---
+
 # Statistics
 
 * TOC
