@@ -1,5 +1,8 @@
 ---
+title: "Statistics"
 permalink: /statistics/
+author_profile: true
+layout: single
 ---
 
 # Statistics
