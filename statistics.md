@@ -1,6 +1,6 @@
 ---
-title: "Statistics"
 permalink: /statistics/
+title: "Statistics"
 author_profile: true
 layout: single
 classes: wide
