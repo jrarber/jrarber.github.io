@@ -1,0 +1,438 @@
+---
+title: "Mixed Effects Modeling Protocol"
+output:
+  html_document:
+    df_print: paged
+data: "2026-04-02"
+---
+
+```{r}
+library(lme4) # standard for mixed effect models 
+library(nlme) # alternative 
+library(lmertest) # for more functions 
+library(ggplot2)
+
+```
+# Example One: OWLS
+```{r}
+ data = read.csv("Owls.csv")
+```
+
+<br> 
+## First 
+We start with a linear model. <br> 
+We are interested in Nestling Negotiation as a function of parental sex, arrival time, and food treatment. <br> 
+
+```{r}
+mod.lm <- lm(NegPerChick ~ SexParent * FoodTreatment + 
+               SexParent * ArrivalTime, data = data)
+plot(mod.lm)
+```
+<br> 
+<br> 
+__ALWAYS check assumptions__ <br> 
+Our residuals are not homescedastic. The shape of the plot implies a log-transformation may be useful. <br> 
+<br> 
+<br>
+Add the new column and run the new model on the log-transformed data. 
+
+ 
+```{r}
+data$logNeg = log10(data$NegPerChick + 1) 
+mod2.lm <- lm(logNeg ~ SexParent * FoodTreatment + 
+               SexParent * ArrivalTime, data = data)
+plot(mod2.lm)
+```
+<br> 
+The log transformation evened the spread of our residuals, so we can now proceed with the model with assumptions non-violated. <br> 
+
+
+## We are interested in variation across nest, so
+We examine the residuals across nest to assess whether nests account for any variation. <br> 
+```{r}
+E = resid(mod2.lm)
+boxplot(E ~ Nest, data = data, axes = T)
+abline(0,0)
+```
+<br> 
+By viewing the boxplot, we can see that variation (*error in the model*) is not evenly spread accross all _Nests_: <br> 
+- Boxes are not centered on the 0 line <br> 
+- Variation in box height <br> 
+- Variation in box width <br> 
+<br> 
+**Thus**: Nests accounts for variation in the model that is not encompassed by our current predictors. <br> 
+
+
+
+### Does adding a random effect *improve* the model? 
+We can test whether including a random effect improves the model fit. <br> 
+<br>
+`gls()` is in the `nlme` package <br> 
+- It fits a model using Generalized Least Squares <br> 
+- lm assumes constant variance and independent errors, gls relaxes these assumptions <br> 
+- gls allows for more complex error structures <br> 
+<br> 
+
+```{r}
+mod.gls <- gls(logNeg ~ SexParent * FoodTreatment + 
+               SexParent * ArrivalTime, data = data)
+
+# lme is in the nlme package 
+mod1.lme <- lme(logNeg ~ SexParent * FoodTreatment + 
+               SexParent * ArrivalTime,
+               # separate (1) intercept for each 'Nest'
+               random = ~1 | Nest, 
+               data = data)
+
+```
+<br> 
+
+__Now we COMPARE our two models__<br> 
+We compare the two models using a Likelihood Ratio Test <br> 
+```{r}
+# LRT to test whether we need the random intercept 
+anova(mod.gls, mod1.lme)
+```
+<br> 
+We can see that the AIC of the model *including* the random effect is much smaller, meaning the random effect **improves** the model. <br> 
+<br> 
+
+
+## Now we know we *need* to include the Random Effect 
+First we examine the significance of our regression parameters: 
+```{r}
+summary(mod1.lme)
+```
+With the p-values, we can see that Sex and ArrivalTime have significant effects, but not the interactions <br> 
+<br> 
+<br> 
+Now we can refit the model using Maximum Likelihood instead of REML for LRT <br>
+```{r}
+mod1.FULL <- lme(logNeg ~ SexParent * FoodTreatment + 
+               SexParent * ArrivalTime,
+               # separate (1) intercept for each 'Nest'
+               random = ~1 | Nest, 
+               data = data, method = "ML") # change to ML
+```
+<br> 
+This is our full model, but we want to build *reduced* models that are different by only **one** treatment, to test for the effect of that treatment by LRT. <br> 
+<br> 
+```{r}
+# remove the sex and food treatment interaction
+mod1.A <- update(mod1.FULL, .~. -SexParent:FoodTreatment) 
+
+# remove the sex and arrival time interaction 
+mod1.B <- update(mod1.FULL, .~. -SexParent:ArrivalTime)
+```
+
+<br> 
+Now to test the interactions we can run a test comparing the reduced and full models. <br> 
+```{r}
+anova(mod1.FULL, mod1.A)
+anova(mod1.FULL, mod1.B)
+```
+<br> 
+We can see that our interactions were __NOT__ significant, so we want to remove them from our model. 
+
+
+## Building the Reduced Updated Model 
+```{r}
+mod2.FULL = lme(logNeg ~ SexParent + FoodTreatment + ArrivalTime, 
+                random = ~1 |Nest, method = "ML", data = data) 
+mod2.A = update(mod2.FULL, .~. -FoodTreatment)
+mod2.B = update(mod2.FULL, .~. -SexParent) 
+mod2.C = update(mod2.FULL, .~. -ArrivalTime)
+```
+<br>
+This is our updated model without those *useless* interaction terms. <br>
+<br> 
+But we want to see if each factor has a significant effect on the model fit and outcome, so we use the LRT to compare the full model to each reduced model (one treatment removed) <br> 
+```{r}
+anova(mod2.FULL, mod2.A) # test effect of FoodTreatment
+anova(mod2.FULL, mod2.B) # test effect of SexParent
+anova(mod2.FULL, mod2.C) # test effect of ArrivalTime
+```
+<br> 
+
+
+
+
+
+
+
+# Example 2: Marine Benthic Data and Plotting Results
+Benthic data from 9 intertidal zones along the east coast. 5 samples were taken per beach and assessed for species richness. <br> 
+```{r}
+data = read.csv("RIKZ.csv")
+data$fBeach = factor(data$Beach) # to ensure Beach is a factor
+```
+
+## First: Define Primary Model 
+```{r}
+M1me1 = lme(Richness ~ NAP, random = ~1 | fBeach, data = data)
+summary(M1me1)
+```
+
+## Plot 
+```{r}
+F0 = fitted(M1me1, level = 0) # average relationship over ALL data
+F1 = fitted(M1me1, level = 1)
+I = order(data$NAP) # order the data
+NAPs = sort(data$NAP) # sort the data 
+```
+
+<br> 
+We need to write a `for` loop to summarize all of the relationship per Beach (one different line for each beach) <br> 
+
+```{r}
+plot(NAPs, F0[I], lwd = 4, type = "l", ylim = c(0,22), 
+     ylab = "Richness", xlab = "NAP")
+for(i in 1:9){
+  x1 = data$NAP[data$NAP ==i]
+  y1 = F1[data$Beach == i]
+  K = order(x1) 
+  lines(sort(x1), y1[K])
+}
+
+```
+
+
+We need to write a `for` loop to produce line-summaries for each individual beach. <br>
+
+```{r}
+for(i in 1:9){
+  x1 = data$NAP[data$NAP ==i]
+  y1 = F1[data$Beach == i]
+  K = order(x1) 
+  plot(lines(sort(x1), y1[K]))
+}
+```
+<br> 
+
+When we plot the points with different colors per Beach, we see that the slopes **differ** between beaches, thus we need a more complex model that includes **random slopes** <br> 
+
+
+### Plot in ggplot
+```{r}
+M1me2 = lmer(Richness ~ NAP + (1 | fBeach), data = data)
+```
+
+__First__ we are going to plot in `ggplot2` so we need to save coefficients <br> 
+```{r}
+intercepts = coef(M1me2)$fBeach[,1] # intercept per beach
+slopes = coef(M1me2)$fBeach[,2] # slope per beach
+pop_int = fixef(M1me2)[1] # population intercept (fixed effects)
+pop_slope = fixef(M1me2)[2] # population slope (fixed effects )
+```
+
+
+Now with our variables we can plot in `ggplot2` <br> 
+```{r}
+ggplot(data, aes(NAP, Richness)) + 
+  geom_point(data = data, mapping = aes(color = fBeach)) + 
+  geom_abline(intercept = intercepts, slope = slopes, size = 0.25) + 
+  geom_abline(intercept = pop_int, slope = pop_slope, size = 1, color = "steelblue") + theme_classic()
+```
+
+`ggplot2` produces roughly the same plot (just slightly easier) <br> 
+
+
+
+
+##  More appropriate (Random Slope) mixed effects model 
+We saw that the slope of the points differed depending on what Beach they were sampled from, so we should incorporate __Random Slopes__ in our model as well <br> 
+```{r}
+M1me3 = lmer(Richness ~ NAP + (1 + NAP | fBeach), data = data)
+```
+
+We incorporated random *slopes* for by adding `NAP` in our random effect: `(1 + NAP | fBeach)` <br> 
+<br> 
+
+Now we can redo our plot to assess the model fit. <br> 
+```{r}
+intercepts = coef(M1me3)$fBeach[,1] # intercept per beach
+slopes = coef(M1me3)$fBeach[,2] # slope per beach
+pop_int = fixef(M1me3)[1] # population intercept (fixed effects)
+pop_slope = fixef(M1me3)[2] # population slope (fixed effects )
+
+ggplot(data, aes(NAP, Richness)) + 
+  geom_point(data = data, mapping = aes(color = fBeach)) + 
+  geom_abline(intercept = intercepts, slope = slopes, size = 0.25) + 
+  geom_abline(intercept = pop_int, slope = pop_slope, size = 1, color = "steelblue") + theme_classic()
+
+```
+
+__Now__ we see that each Beach's richness changes at different rates. 
+
+
+
+
+
+# Example 3: kluane data 
+```{r}
+x = read.csv("kluane.csv")
+x
+```
+
+Data has a variety of different plots, and different treattments across plots. Thus, we have non-independence between sample units, and need to incorporate a __block design__. <br> 
+<br> 
+
+## First we explore the dataset in general 
+We want to explore the pattern of the residuals in our model to assess for homoscedasticity (an equal amount of spread per group across the x axis) <br> 
+<br> 
+Unequal variances are followed up with a log-transformed model.
+```{r}
+z.int1 = lmer(phen.ach ~ treatment + duration + treatment:duration + 
+                (1 | plot), data =x)
+plot(z.int1) 
+
+z.int2 = lmer(log(phen.ach) ~ treatment + duration + treatment:duration + 
+                (1 | plot), data = x)
+plot(z.int2)
+```
+
+<br> 
+The log-transformed data satisfy our assumptions, so we can proceed with it's interpretation: 
+```{r}
+summary(z.int2) 
+anova(z.int2)
+```
+<br> 
+<br> 
+## Plotting the data 
+Now with our anova (type 3) table, we have our effects and we can make a plot. <br>
+```{r}
+ggplot(data = x, aes(x = duration, y = log(phen.ach), 
+                      fill = duration, colour = duration)) + 
+  geom_line(aes(group = plot), col = "black") + 
+  geom_point(size = 3, show.legend = F) + 
+  facet_wrap(~treatment, nrow = 1) + 
+  labs(x = "Duration", y = "log phenolics concentration") + 
+  theme_classic()
+
+```
+
+
+
+
+
+# Example 4: Starling data 
+```{r}
+dataf # object pulled from the 'starling.Rda'
+```
+
+We have masses of individuals across different months, and whether they were in a tree. <br> 
+<br> 
+Here we are interested in mass changes of individuals over different months. <br> 
+
+## Preliminary plot (with ggplot2) 
+```{r}
+## group roost sites in facets 
+ggplot(dataf, aes(x = mnth, y = stmass)) + 
+  geom_point() + 
+  geom_line(aes(group = subject)) + 
+  facet_grid(~roostsitu) + 
+  theme_classic()
+
+
+## OR color points and lines by roost-site 
+ggplot(dataf, aes(mnth, stmass, color = roostsitu)) + 
+  geom_point() + 
+  geom_line(aes(group = subject)) + 
+  theme_classic()
+```
+
+
+## RUN the mixed model 
+Since we are running a __Repeated Measures__, we hold `subject` as a random factor 
+
+```{r}
+lmer2 <- lmer(stmass~ mnth*roostsitu+(1|subject), data = dataf)
+```
+
+
+### Overlay results from our model on the plot of the raw data
+First we need to extract our predicted values. First we will calculate the population level predictions, then we calculate the predictions for all random effects. 
+```{r}
+dataf$pred1 <- predict(lmer2, re.form = NA) # this ignores random effects 
+dataf$pred2 <- predict(lmer2)
+```
+
+
+Now that we have our *predicted* results, we can plot them over our actual results. 
+```{r}
+# save the faceted observed values as a base plot
+g0 = ggplot(dataf, aes(x = mnth, y = stmass)) + 
+  geom_point() + 
+  geom_line(aes(group = subject)) + 
+  facet_grid(~roostsitu) + 
+  theme_classic()
+print(g0)
+
+# add in the predicted values here 
+g0 + 
+  # overlay THIN lines for individual predicted responses
+  geom_line(color = "gray55", aes(y = pred2, grouop = subject), size = 0.15) + 
+  # thicker blue line for population-level predictions
+  geom_line(color = "red", aes(y = pred1, group = subject))
+
+```
+<br> <br>
+
+If we are interested in the individual predicted responses, we can investigate those by removing the raw data and population-level predictions from the plot. 
+```{r}
+g0 = ggplot(dataf, aes(mnth, stmass)) +
+  theme_classic() 
+  
+g0 + geom_line(color = "black", aes(y = pred2, group = subject), size = 0.15)
+```
+
+
+
+
+# Example 5: Linear mixed effect models for calculating repeatability 
+Here, this is essentially a test of *consistency*. Often valuable for assessing accuracy of instruments and/or differences in procedure (i.e. individuals). <br><br> 
+Calculates an **interclass correlation coefficient** to be able to assess for differences in precision across measurements. 
+<br> <br> 
+
+## Quick plots for visual assessment
+```{r}
+flycat = read.csv("flycatcher.csv") 
+
+stripchart(patch ~ bird, data = flycat, vertical = T, pch = 16, cex = 1.5, 
+           las = 2, xlab = "Individual Bird", ylab = "Patch length (mm)")
+```
+
+With our stripchart, we see that the two points per bird generally follow the same pattern across patch length. This indicates repeatability. <br> 
+
+
+Another way to plot this is with ggplot
+```{r}
+ggplot(flycat, aes(y = patch, x = factor(year))) + 
+  geom_point(size = 3, col = "firebrick", alpha = 0.5) + 
+  geom_line(aes(group = bird)) + 
+  labs(x = "Year", y = "Patch length (mm)") + 
+  theme_classic()
+```
+
+Here we want to look at the position of the points **relative** to all other points. <br> 
+Essentially looking at the rank order within each factor (`year`). <br> <br> 
+
+## Running the *simple* mixed effects model 
+```{r}
+z = lmer(patch ~ 1 + (1 | bird), data = flycat)
+```
+
+We include the `~1` to only investigate the *universal* intercept, and what variance is attributable to `bird` and pure error. <br> <br> 
+
+```{r}
+VarCorr(z)
+
+# calculate the intraclass correlation coefficient 
+r = 1.11504^2/(1.11504^2 + 0.59833^2) 
+# variation by random factor (`bird`) divided by total variation
+r
+```
+
+`VarCorr` gives the amount of variance explained by `trait` (in this case, `bird`). <br> 
+
