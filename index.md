@@ -1,5 +1,7 @@
 ---
 author_profile: true
+header: 
+  image: /_data/Nowlin_Image.jpg
 ---
 
 * TOC
