@@ -2,7 +2,6 @@
 layout: single
 title: "Statistics"
 toc: true
-classes: wide
 ---
 Here is a general overview and workflow guide for statistical analysis in R programming. 
 
