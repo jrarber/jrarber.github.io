@@ -6,7 +6,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-gist
 
-include:
+keep_files:
   - statistics
   - stats
 
