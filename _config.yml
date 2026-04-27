@@ -6,9 +6,6 @@ plugins:
   - jekyll-sitemap
   - jekyll-gist
 
-keep_files:
-  - statistics
-  - stats
 
 toc: true
 #toc_label: "My Table of Contents" # Optional: overrides default label
