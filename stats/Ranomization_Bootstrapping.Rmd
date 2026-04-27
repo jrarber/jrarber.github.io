@@ -1,0 +1,334 @@
+---
+title: "Randomization, Bootstraping, and Monte Carlo Methods"
+output: html_notebook
+date: "2026-04-14"
+---
+
+Randomization tests are useful because they do not assume **any** underlying distribution. <br> 
+
+
+# Basic built-in Functionality 
+Sampling from distributions can be useful. 
+```{r}
+# sample normal distribution
+rand.norm = rnorm(n = 10, mean = 0, sd = 1) 
+```
+
+## Sampling Distributions
+To ensure its a normal distribution, we can increase our sample size (Central Limit Theorem)
+```{r}
+rand.norm.1000 = rnorm(n = 1000, mean = 0, sd = 1) 
+hist(rand.norm.1000)
+```
+
+
+We can also sample other distributions. The uniform distribution is helpful when we want to sample values in a range with each value being equally likely. 
+```{r}
+rand.unif = runif(n = 1000, min = 0, max = 1)
+hist(rand.unif)
+```
+
+Bars are similar heights due to a similar frequency of each being sampled. Thus, each value in the range has an *equal chance* of being selected. <br> <br> 
+
+A __Poisson Distriubtion__ is very helpful in biology because many processes can be fit with the 'count data' distribution of a Poisson. <br> 
+A poisson process describes events happening with some probability over space or time. Lambda is both the mean and variance of the distribution. 
+```{r}
+rand.pois = rpois(n = 1000, lambda = 1) 
+hist(rand.pois)
+```
+
+## Sampling from a Vector 
+Often, you want to be able to sample from a prescribed set of values (a vector).
+```{r}
+# sample a vector 
+rand.numb.1 = sample(x = 1:10, size = 1) |> print()
+```
+<br><br> 
+
+We can also define the vector first, and then sample from it. 
+```{r}
+x = c(1:10)
+z = sample(x, size = 10) |> print()
+```
+<br><br>
+We can also define replacement (values reinputted to vector if previously sampled) or not. The default in sample is `replace = F`. 
+```{r}
+# sample vector with replacement 
+rand.numb.r = sample(x, 10, replace = T) |> print()
+```
+<br> 
+
+
+## Weighted Sampling 
+If certain values are more probable than others within the vector, we can specify the exact probability of each value in the vector. This requires a _probability vector_ <br> 
+```{r}
+# establish a probability vector 
+prob.vec = c(rep(x = 0.05, times = 5), rep(x = 0.15, times = 5)) |> print()
+sum(prob.vec) |> print()
+```
+<br><br> 
+
+Now we bias our sampling based off of this probability vector. Each value in the probability vector lines up to its coresponding value in the sample vector's position. 
+```{r}
+# weighted sampling 
+rand.numb.bias = sample(x, size = 10, replace = T, prob = prob.vec) |> print()
+```
+<br> 
+Note that the results are dominated by values in the vector >10. This is because our last 5 values in the probability vector ar three times as large as the probabilities for the first 5 values. 
+
+
+
+
+# Randomization for Hypothesis Testing 
+Many
+
+```{r}
+birds = read.csv("Bumpus_data.csv")
+```
+<br>
+With our data, we want to test the hypothesis that _surviving sparrows_ will have a lower mass than _parishing sparrows_. 
+<br> 
+This *could* easily be done with a Student's t-test, a simple difference between two independent groups: 
+```{r}
+bird.t.test = t.test(birds$wgt ~ birds$surv, alternative = "less") |> print()
+```
+<br>
+Our dataset is large enough that we do __not__ have to be concerned with violating the assumptions of a t-test. However, this may not always be the case. <br><br> 
+
+With resampling/randomization test, we are able to relax assumptions of a t-test (particularly useful in small sample sizes). 
+<br> 
+Randomization allows us to build a probability distrubition by continually resampling __our__ dataset, and finding out how likely our __initial__ finding is given this probability distribution. 
+```{r Randomization: for-loop}
+iter <- 9999;  # This is the amount of iterations/runs we want 
+diff <- NULL;  # A vector to store differences between groups in each iteration
+N_birds <- dim(birds)[1] # Total number of birds 
+
+for(i in 1:iter){
+  bird_samp <- sample(x = birds$surv, size = N_birds, replace = F) 
+  samp_alive <- which(bird_samp == "alive") 
+  samp_dead <- which(bird_samp == "dead") 
+  mu_samp_A <- mean(birds[samp_alive, 5])
+  mu_samp_D <- mean(birds[samp_dead, 5])
+  diff[i] <- mu_samp_A - mu_samp_D
+}
+
+tru_w_A <- mean(birds[birds$surv == "alive", 5]) 
+tru_w_D <- mean(birds[birds$surv == "dead", 5])
+td <- tru_w_A - tru_w_D
+hist(diff)
+abline(v = td, col = "red")
+```
+<br> 
+The randomization generates a **Null** distribution of differences in body weights. Our distribution assumes that there is __no association__ of body weight and survival status. <br><br> 
+
+Now we can find the likelihood of observing our true value given this null distribution.  
+```{r}
+less_equal_to <- diff[diff <= td] # values less than or equal to observed 
+(length(less_equal_to)+1)/(length(diff)+1) # proportion of these values to the total 
+
+# we add 1 due to our observed value being included
+```
+<br> 
+
+With our randomization test, our observed result is only 0.0059% likely given our simulated null distribution. This is our simulated p-value. 
+
+
+
+
+
+
+## Spatial Randomization 
+```{r}
+fpet <- read.csv("FpetTrees.csv")
+```
+We want to plot these trees as points in geographic space. 
+
+```{r}
+lat1 = 28.289
+lat2 = 28.2918
+lon1 = -113.1145
+lon2 = -113.1095
+
+plot(x = fpet[,4], y = fpet[,3], xlab = "Longitude", ylab = "Latitude", 
+     pch = 20, cex.lab = 1.25, cex.axis = 1.25, 
+     xlim = c(lon1, lon1-0.001, lon2 + 0.001), 
+     ylim = c(lat1 - 0.0005, lat2 +0.0005))
+polygon(x = c(lon1, lon1, lon2, lon2)), y = c(lat1,lat2,lat2,lat1), col = "tan")
+points()
+```
+
+```{r get mean nearest neightbour}
+mean_nearest_neighbour <- function(trees, lat = 3, long = 4){ 
+  N_trees = dim()}
+```
+
+
+
+
+
+
+## Randomization for Relationshiops
+Correlations and regressions assume a normal distribution and a linear relationship. <br><br> 
+This may not always be the case for our data. 
+
+```{r Randomization Relationship Data}
+nitrogen <- seq(10,50, length = 30) 
+biomass <- 5 + 0.8 * nitrogen + rnorm(30, sd = 8)
+plot(biomass~nitrogen)
+```
+<br> 
+First let's look at the actual correlation between our variables. <br> <br> 
+```{r}
+obs_r = cor(nitrogen, biomass) |> print()
+```
+<br> <br> 
+A correlation works well with tight fitted data, but there are often outliers in true observed data, especially in ecology.  
+```{r}
+biomass[5] <- 80
+plot(biomass~nitrogen)
+```
+<br> 
+Removing outliers to deal with their influence can remove true variation in the data that we are interested in. This is where randomization comes in. <br><br> 
+Randomization allows us to incorporate all of the data, even egregious outliers. <br> 
+```{r Randomization test for Relationship }
+reps = 9999
+null_rs <- numeric(reps)
+N_biomass <- length(biomass) 
+
+for(i in seq_len(reps)){
+  # First, we shuffle the variables to break apart any actual relationship
+  shuffled_biomass <- sample(biomass, size = N_biomass, replace = F)
+  
+  # Now we calculate the correlation coefficient for this run 
+  null_rs[i] <- cor(nitrogen, shuffled_biomass)
+}
+
+hist(null_rs)
+abline(v = obs_r, col = "red")
+```
+<br> 
+We can see that our observed correlation coefficient (the red line) is well outside the 95% confidence interval. 
+<br>
+```{r Caluclate our p-value}
+p.value <- (sum(abs(null_rs) >= abs(obs_r)) / (reps + 1)) |> print()
+```
+
+__The Outlier Problem:__<br>
+Standard correlation tests are very sensitive to outliers. Randomization tests are based on the actual distribution of your specific data, making them less likely to give a "false significance" (type I error) driven by a *single* datapoint. <br><br> 
+
+
+
+## Avoidance/Co-occurence Tests 
+We have present (1) and absent (0) data. We want to test if two species show up together more than we would expect due to chance. Do they prefer to cohabitate? 
+
+```{r Set up the data}
+# 50 plots 
+n_plots <- 50
+
+# Generate random occurrence data for both species 
+woodpecker <- rbinom(n_plots, 1, 0.4) # assign "1" with "40%" probability
+nuthatch <- rbinom(n_plots, 1, 0.4)
+
+# Force a few extra aco-occurrences to simulate a relationshjip 
+woodpecker[1:10] <- 1
+nuthatch[1:10] <- 1
+
+# Put into a matrix 
+site_mat <- data.frame(woodpecker, nuthatch)
+```
+<br><br> 
+Now we set up our test statistic we will use, and we calculate it for our *true* observed value. <br> 
+```{r Test statistic}
+obs_cooccur <- sum(site_mat$woodpecker == 1 & site_mat$nuthatch == 1) |> print()
+```
+<br> 
+This is simply the number of sites the two species co-occur in. <br><br> 
+Now we set up our randomization test/model. 
+```{r}
+reps <- 9999
+null_counts <- numeric(reps)
+
+for(i in seq_len(reps)){
+  # shuffle the nuthatch sites
+  shuffled_nuthatch <- sample(site_mat$nuthatch) 
+  
+  #shuffle the woodpecker sites 
+  shuffled_woodpecker <- sample(site_mat$woodpecker) 
+  
+  # calculate frequency of co-occurrence 
+  null_counts[i] <- sum(shuffled_woodpecker == 1 & shuffled_nuthatch == 1) 
+}
+```
+<br><br> 
+
+Now we can make a *pretty* plot. 
+```{r}
+ggplot() + 
+  ylab("Count") +
+  xlab("Simulated Co-Occurrence") + 
+  geom_histogram(aes(x = null_counts), bins = 30, 
+                 fill = "steelblue", alpha = 0.4, color = "black") + 
+  geom_vline(xintercept = obs_cooccur, size = 1, 
+             linetype = "dashed", color = "red") + theme_classic()
+```
+<br><br> 
+
+Now we calculate our p-value for co-occurrence:
+```{r Calculating p-value}
+p.value <- (sum(null_counts >= obs_cooccur)/(reps + 1)) |> print() 
+```
+
+__Chi-Squared Limitations:__ <br> 
+In ecology, some species are naturally rare and others can be very _common_. The standard use of a Chi-squared test can be invalid when species are common in general. By shuffling our locations but keeping the total count fixed, you account for the fact that a common species is likely to overlap with others just by being everywhere. <br><br> 
+
+
+## ANOVA-design Randomization (>2 groups)
+A one-way ANOVA is very useful for comparing groups. However, ecological data--such as frequency of species occurrence--is often *count* data, and thus does not follow a normal distribution, but a *Poisson* distribution. The 0's in a Poisson violate the assumptions of an ANOVA. <br><br> <br>
+__The example:__ <br>
+We want to test three different methods to restore native prairie: controlled burning, conservation grazing, and mowing (control). We measured the density of native grass stems per square meter in 15 plots for each treatment (45 plots total). <br><br> 
+<br> 
+a __Randomization ANOVA__ allows us to test for differences accross mulitple groups without worrying about whether your residuals are perfectly bell-shaped. <br><br> 
+```{r Generate our example data}
+burning <- rpois(15, 25) # mean of 25 stems 
+grazing <- rpois(15, 18) # mean of 18
+mowing <- rpois(15, 12) # mean of 12
+
+restoration_data <- data.frame(
+  stems = c(burning, grazing, mowing), 
+  treatment = rep(c("Burn","Graze","Mow"), each = 15)
+) |> print()
+```
+Now we have all of our grass data for the three treatments in one dataframe. <br><br>
+Now, we decide on, and calculate our test statistic. Since it is an ANOVA design, we will use the **F statistic**. <br><br> 
+
+```{r Our observed F-statistic}
+obs_anova <- summary(aov(stems ~ treatment, data = restoration_data))
+obs_F <- obs_anova[[1]]["treatment", "F value"]
+```
+<br><br>
+Now we can randomize our data and simulate a distribution of F statistics. To do this, we can simply shuffle **group membership** instead of the dependent variable data itself. This shuffles the assignment just the same. 
+```{r}
+reps <- 4999 
+null_f_values <- numeric(reps)
+
+for(i in seq_len(reps)){ 
+  # Shuffle treatment
+  shuffled_labeels <- sample(restoration_data$treatment) # NO replacement
+  
+  # Run ANOVA on the shuffled data and grab the F values
+  s_anova <- summary(aov(restoration_data$stems ~ shuffled_labeels))
+  null_f_values[i] <- s_anova[[1]]["shuffled_labeels", "F value"]
+}
+
+hist(null_f_values)
+abline(v = obs_F, col = "red")
+```
+Notice that our line for our observed value is not on the histrogram, that is because it is so much larger than what was simulated with our randomization. <br><br>
+
+
+Now we can calculate the p-value: 
+```{r}
+p.value = (sum(null_f_values >= obs_F)/ (reps + 1)) |> print() 
+```
+
+
