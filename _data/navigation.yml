@@ -8,3 +8,17 @@ main:
   - title: "About"
     url: /about/
 
+
+sidebar-nav:
+  - title: "Statistics"
+    children:
+      - title: "Descriptive Stats"
+        url: /stats/Descriptive_Stats.nb.html
+      - title: "Parameterics"
+        url: /stats/Parameterics.nb.html
+      - title: "Multisample Hypotheses"
+        url: /stats/Multisample-Hypotheses.html
+      - title: "Linear Mixed Effect Models"
+        url: /stats/Linear.Mixed.Effects.Models.nb.html
+      - title: "Randomization Tests"
+        url: /stats/Ranomization_Bootstrapping.nb.html
