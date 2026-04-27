@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Statistics"
-permalink: /statistics/
+url: https://jrarber.github.io/statistics/
 ---
 Here is a general overview and workflow guide for statistical analysis in R programming. 
 
