@@ -9,7 +9,7 @@ If you are unfamiliar (or need a refresher), check out the <a href="/stats/Intro
 
 
 # Specific Help Pages
-## <a href="/stats/Descriptive Stats.nb.html" title="Descriptive Statistics in R">Descriptive Statistics</a>
+## <a href="/stats/Descriptive%20Stats.nb.html" title="Descriptive Statistics in R">Descriptive Statistics</a>
 
 
 ## <a href="/stats/Parametrics.nb.html" title="Parametric Tests in R">Parametric Tests</a> 
