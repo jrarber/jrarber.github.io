@@ -1,5 +1,6 @@
 ---
 author_profile: true
+layout: home
 ---
 
 * TOC
@@ -22,4 +23,4 @@ Welcome to the Arber Ecology Website! I am a graduate student studying forest ec
 
 
 
-## [Statistical Guides](statistics/index.md)
+## [Statistical Guides](/statistics/)
