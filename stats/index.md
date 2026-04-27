@@ -1,5 +1,4 @@
 ---
-permalink: /statistics/
 layout: single
 title: "Statistics"
 ---
