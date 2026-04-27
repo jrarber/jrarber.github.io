@@ -1,5 +1,7 @@
 ---
-permalink: /stats/
+permalink: /statistics/
+layout: single
+title: "Statistics"
 ---
 Here is a general overview and workflow guide for statistical analysis in R programming. 
 
