@@ -2,6 +2,8 @@
 author_profile: true
 layout: home
 toc: true
+header:
+  image: /images/swamp1.jpeg
 ---
 
 
