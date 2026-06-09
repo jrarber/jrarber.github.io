@@ -3,7 +3,7 @@ author_profile: true
 layout: home
 toc: true
 header:
-  image: /_data/IMG_5984.jpeg/
+  image: /_data/IMG_5984.jpeg
 ---
 
 
