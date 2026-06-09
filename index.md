@@ -3,7 +3,7 @@ author_profile: true
 layout: home
 toc: true
 header:
-  image: /IMG_5984.jpeg
+  image: [/IMG_5984.jpeg](https://github.com/jrarber/jrarber.github.io/blob/b6a82700024c43a3b0e1821f5b6d67645acaa94e/_data/IMG_5984.jpeg)
 ---
 
 
