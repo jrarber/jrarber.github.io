@@ -7,11 +7,11 @@ header:
 ---
 
 
-Welcome to the Arber Ecology Website! I am a graduate student studying forest ecology. I have a strong interest in the ecology of the Southeastern United States. While my training is my primarily in tree physiology, I consider myself an ecologist and naturalist first and foremost. 
+Welcome to the Arber Ecology Website! I am a graduate student studying forest ecology. I have a strong interest in the ecology of the Southeastern United States. While my research is  primarily in tree physiology, I am broadyly trained, and consider myself an ecologist and naturalist first and foremost. 
 
 
 
-
+I am interested in a diverse set of forestry and tree physiological questions, ranging from individual plant development to whole community diversity and function. 
 
 
 
