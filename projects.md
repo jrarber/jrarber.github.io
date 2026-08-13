@@ -14,6 +14,11 @@ Swamps (in the broad sense) are forested wetlands, landscapes where flooding occ
 ## Functional Diversity of Arkansas Floodplain Forests
 
 
+
+
+
+
+[Map of soil sand content in the American Southeast](/southeast_sand.png)
 ## Ecological Radiation of the genus *Carya*
 Hickories (*Carya spp.*) are an important genus across the eastern United States. 
 
