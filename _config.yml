@@ -5,6 +5,7 @@ plugins:
   - jekyll-include-cache
   - jekyll-sitemap
   - jekyll-gist
+  - jekyll-toc
 
 layout: single
 
