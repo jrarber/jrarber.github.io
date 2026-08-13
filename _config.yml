@@ -6,6 +6,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-gist
 
+layout: single
 
 toc: true
 #toc_label: "My Table of Contents" # Optional: overrides default label
