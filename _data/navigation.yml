@@ -18,6 +18,8 @@ sidebar-nav:
         url: /stats/Parameterics.nb.html
       - title: "Multisample Hypotheses"
         url: /stats/Multisample-Hypotheses.html
+      - title: "Multivariate Analyses"
+        url: /stats/Multivariate-.html
       - title: "Linear Mixed Effect Models"
         url: /stats/Linear.Mixed.Effects.Models.nb.html
       - title: "Randomization Tests"
