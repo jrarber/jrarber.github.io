@@ -1,0 +1,9 @@
+---
+# Front matter blocks tell Jekyll to process this file
+---
+
+@import "minimal-mistakes";
+
+.smaller-font .page__content {
+    font-size: 0.85rem !important;
+}
