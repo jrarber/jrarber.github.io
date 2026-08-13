@@ -4,48 +4,10 @@
 
 @import "minimal-mistakes";
 
-/* Rules applied ONLY to HTML documents featuring body_class: "smaller-font" */
-.smaller-font {
-
-  /* 1. DECREASE the main body text size */
-  .page__content {
-    font-size: 0.85rem !important; 
-  }
-
-  /* 3. INCREASE the sidebar text (Author profile, biography, and links) */
-  .sidebar {
-    font-size: 1.15rem !important; 
-  }
-
-  /* 4. INCREASE the global top navigation bar */
-  .masthead {
-    /* Scales up the site title/logo text on the left */
-    .site-title {
-      font-size: 1.4rem !important; 
-    }
-    
-    /* Scales up the navigation links on the right */
-    .site-nav .nav__items a {
-      font-size: 1.15rem !important; 
-      font-weight: bold; /* Optional: makes links easier to read at larger sizes */
-    }
-  }
-}
-
-
-@import "minimal-mistakes-custom"
 
 /* 1. DECREASE body font size inside your custom HTML files */
 .html-document-only .page__content {
   font-size: 0.85rem !important; 
-}
-
-/* 2. INCREASE page headers inside your custom HTML files */
-.html-document-only .page__title {
-  font-size: 2.2rem !important; 
-}
-.html-document-only .page__lead, .html-document-only .page__meta {
-  font-size: 1.2rem !important; 
 }
 
 /* 3. INCREASE the sidebar text inside your custom HTML files */
