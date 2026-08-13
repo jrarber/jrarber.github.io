@@ -12,7 +12,7 @@ If you are unfamiliar (or need a refresher), check out the <a href="/statistics/
 ## <a href="/stats/Descriptive%20Stats.nb.html" title="Descriptive Statistics in R">Descriptive Statistics</a>
 Descriptive statistics are a way of *describing* the data. This includes summary statistics such as mean, median, standard deviation and standard error. Recall, standard error is simply standard deviation divided by the square root of our sample size. 
 
-## <a href="/stats/Parametrics.nb.html" title="Parametric Tests in R">Parametric Tests</a> 
+## <a href="/stats/Parametric-Tests.html" title="Parametric Tests in R">Parametric Tests</a> 
 Parameterics encompass a broad range of statistical tests that operate according to a normal distribution. As such, one of the assumptions is that the data must be normal for a parametric test to be appropriate. One of these is the Student's t-test, which compares two groups based on a categorical independent variable. Linear regression is another key parametric model, determining the degree of effect that a continuous independent variable explains variation in the response. 
  
 
