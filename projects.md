@@ -22,5 +22,4 @@ Hickories (*Carya spp.*) are an important genus across the eastern United States
 
 
 ![Map of soil sand content in the American Southeast](/southeast_sand.png)
-
 ## `arber` R package for forest, soil, and spatial ecology
