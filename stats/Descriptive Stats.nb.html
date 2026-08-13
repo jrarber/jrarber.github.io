@@ -33,6 +33,51 @@ toc: true
 
 
 
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // 1. Select the TOC container and all headers inside the article or body
+    const tocContainer = document.getElementById("toc");
+    const headers = document.querySelectorAll("h1, h2, h3, h4");
+    
+    if (!tocContainer || headers.length === 0) return;
+
+    const tocList = document.createElement("ul");
+
+    headers.forEach((header, index) => {
+      // 2. Generate a unique ID if the header doesn't already have one
+      if (!header.id) {
+        const slug = header.textContent
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-") // Replace spaces/special chars with hyphens
+          .replace(/(^-|-$)/g, "");     // Clean up trailing hyphens
+        
+        header.id = slug || `header-${index}`;
+      }
+
+      // 3. Create the TOC list item and link
+      const listItem = document.createElement("li");
+      const link = document.createElement("document.createElement");
+      
+      // Indent based on header level (h1 = level 1, h2 = level 2, etc.)
+      const level = header.tagName.substring(1);
+      listItem.style.paddingLeft = `${(level - 1) * 15}px`;
+
+      // Build the anchor link
+      const anchor = document.createElement("a");
+      anchor.href = `#${header.id}`;
+      anchor.textContent = header.textContent;
+
+      listItem.appendChild(anchor);
+      tocList.appendChild(listItem);
+    });
+
+    tocContainer.appendChild(tocList);
+  });
+</script>
+
+
+
+
 
 
 
