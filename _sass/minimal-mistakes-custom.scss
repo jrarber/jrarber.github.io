@@ -1,0 +1,28 @@
+/* Target custom sidebar navigation lists globally */
+.sidebar .nav__list {
+  font-size: 1.05rem !important; /* Matches default body text size */
+
+  // Enlarge category / section headers in the sidebar
+  .nav__title {
+    font-size: 1.15rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  // Enlarge and space out individual menu links
+  a {
+    font-size: 1.05rem !important;
+    padding: 0.6rem 0.8rem !important; /* Adds comfortable spacing around text */
+    line-height: 1.4 !important;
+  }
+}
+
+/* Widens the sidebar on desktop screens to handle the larger text layout */
+@media (min-width: 64em) {
+  .sidebar {
+    width: 28% !important; /* Expands width to hold larger menu options cleanly */
+  }
+  
+  .page__content {
+    width: 68% !important; /* Adjusts main text box slightly to prevent collision */
+  }
+}
