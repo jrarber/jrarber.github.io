@@ -4,25 +4,30 @@
 
 @import "minimal-mistakes";
 
-.smaller-font .page__content {
-    font-size: 0.50rem !important;
-}
-/* Target headers and sidebars ONLY on pages with the "smaller-font" class */
+/* Rules applied ONLY to HTML documents featuring body_class: "smaller-font" */
 .smaller-font {
-  
-  /* 1. Scale up the main page title and header metadata */
-  .page__title, .page__lead, .page__meta {
-    font-size: 20rem !important; /* Increase as needed */
+
+  /* 1. DECREASE the main body text size */
+  .page__content {
+    font-size: 0.85rem !important; 
   }
 
-  /* 2. Scale up the entire sidebar (author profile or custom navigation) */
+  /* 3. INCREASE the sidebar text (Author profile, biography, and links) */
   .sidebar {
-    font-size: 20rem !important; 
+    font-size: 1.15rem !important; 
+  }
+
+  /* 4. INCREASE the global top navigation bar */
+  .masthead {
+    /* Scales up the site title/logo text on the left */
+    .site-title {
+      font-size: 1.4rem !important; 
+    }
     
-    /* Optional: Ensure specific nested links inside the sidebar scale up too */
-    a {
-      font-size: 20rem !important;
+    /* Scales up the navigation links on the right */
+    .site-nav .nav__items a {
+      font-size: 1.15rem !important; 
+      font-weight: bold; /* Optional: makes links easier to read at larger sizes */
     }
   }
-  
 }
