@@ -14,7 +14,7 @@ sidebar-nav:
     children:
       - title: "Descriptive Stats"
         url: /stats/Descriptive Stats.nb.html
-      - title: "Parameterics"
+      - title: "Parametrics"
         url: /stats/Parametric-Tests.html
       - title: "Multisample Hypotheses"
         url: /stats/Multisample-Hypotheses.html
