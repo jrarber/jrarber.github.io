@@ -15,7 +15,7 @@ sidebar-nav:
       - title: "Descriptive Stats"
         url: /stats/Descriptive Stats.nb.html
       - title: "Parameterics"
-        url: /stats/Parameterics.nb.html
+        url: /stats/Parametrics.nb.html
       - title: "Multisample Hypotheses"
         url: /stats/Multisample-Hypotheses.html
       - title: "Multivariate Analyses"
