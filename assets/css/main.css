@@ -12,16 +12,16 @@
   
   /* 1. Scale up the main page title and header metadata */
   .page__title, .page__lead, .page__meta {
-    font-size: 1.25rem !important; /* Increase as needed */
+    font-size: 2rem !important; /* Increase as needed */
   }
 
   /* 2. Scale up the entire sidebar (author profile or custom navigation) */
   .sidebar {
-    font-size: 1.1rem !important; 
+    font-size: 2rem !important; 
     
     /* Optional: Ensure specific nested links inside the sidebar scale up too */
     a {
-      font-size: 1.1rem !important;
+      font-size: 2rem !important;
     }
   }
   
