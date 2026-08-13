@@ -10,7 +10,7 @@ main:
 
 
 sidebar-nav:
-  - title: "Statistics"
+  - title: 
     children:
       - title: "Descriptive Stats"
         url: /stats/Descriptive_Stats.nb.html
