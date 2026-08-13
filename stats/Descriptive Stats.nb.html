@@ -33,47 +33,47 @@ toc: true
 
 
 
+<nav class="my-toc-container">
+  <h2>Table of Contents</h2>
+  <ul id="toc-list"></ul>
+</nav>
+
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    // 1. Select the TOC container and all headers inside the article or body
-    const tocContainer = document.getElementById("toc");
-    const headers = document.querySelectorAll("h1, h2, h3, h4");
+  document.addEventListener("DOMContentLoaded", function() {
+    // 1. Target your specific list container and your h2 headings
+    const tocList = document.getElementById("toc-list");
+    const headings = document.querySelectorAll("h2");
     
-    if (!tocContainer || headers.length === 0) return;
+    // Safety check if no container or no headings exist
+    if (!tocList || headings.length <= 1) return; 
 
-    const tocList = document.createElement("ul");
+    headings.forEach((heading) => {
+      // Skip the TOC's own header so it doesn't loop into itself
+      if (heading.closest('.my-toc-container')) return;
 
-    headers.forEach((header, index) => {
-      // 2. Generate a unique ID if the header doesn't already have one
-      if (!header.id) {
-        const slug = header.textContent
+      // 2. Automate the missing ID creation safely
+      if (!heading.id) {
+        heading.id = heading.textContent
           .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-") // Replace spaces/special chars with hyphens
-          .replace(/(^-|-$)/g, "");     // Clean up trailing hyphens
-        
-        header.id = slug || `header-${index}`;
+          .trim()
+          .replace(/[^a-z0-9]+/g, "-") // Replaces spaces/special chars with hyphens
+          .replace(/(^-|-$)/g, "");   // Cleans up trailing hyphens
       }
 
-      // 3. Create the TOC list item and link
+      // 3. Build the clickable list item link element
       const listItem = document.createElement("li");
-      const link = document.createElement("document.createElement");
+      const anchorLink = document.createElement("a");
       
-      // Indent based on header level (h1 = level 1, h2 = level 2, etc.)
-      const level = header.tagName.substring(1);
-      listItem.style.paddingLeft = `${(level - 1) * 15}px`;
-
-      // Build the anchor link
-      const anchor = document.createElement("a");
-      anchor.href = `#${header.id}`;
-      anchor.textContent = header.textContent;
-
-      listItem.appendChild(anchor);
+      anchorLink.href = `#${heading.id}`;
+      anchorLink.textContent = heading.textContent;
+      
+      // 4. Inject the built list item into the TOC placeholder
+      listItem.appendChild(anchorLink);
       tocList.appendChild(listItem);
     });
-
-    tocContainer.appendChild(tocList);
   });
 </script>
+
 
 
 
