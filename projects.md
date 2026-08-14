@@ -19,7 +19,9 @@ Hickories (*Carya spp.*) are an important genus across the eastern United States
 
 
 
-
+## `arber` R package for forest, soil, and spatial ecology
+This is mainly a group of functions that make my life easier. Primarily, `arber` builds on publicly available data, such as USFS Forest Inventory and Analysis, BioClim climate data, and soil characteristics (see below). Shapefiles of US regions, states, and EPA ecoregions are built in for quick reference and plotting. 
 
 ![Map of soil sand content in the American Southeast](/southeast_sand.png)
-## `arber` R package for forest, soil, and spatial ecology
+
+`arber` also includes functionality to build soil characteristic rasters from publicly available data ([polaris (Chaney et al. 2016)](http://hydrology.cee.duke.edu/POLARIS/); [Soil Landscapes of the US (SOLUS) (USDA 2024)](https://storage.googleapis.com/solus100pub/index.html)) to match US states or regions, such as the map above. The spatial aspect of merging these rasters is handled by `terra` on the backend. 
