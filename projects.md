@@ -7,7 +7,7 @@ layout: single
 
 
 ## Southeast Swamp Delineation 
-Swamps (in the broad sense) are forested wetlands, landscapes where flooding occurs often with varying degrees of intensity. Historically, foresters have delineated these different forest communities in a suggestive, haphazard manor. While this has worked for 100 years, we currently lack objective classifications of these communities overall. Typically classified as flatwoods, bottomlands, or swamps (strict sense); we lose a lot of fine-grain detail of distinct species associations. 
+Swamps (in the broad sense) are forested wetlands, landscapes where flooding occurs often with varying degrees of intensity. Historically, foresters have delineated these different forest communities in a subjective, haphazard manor. While this has worked for 100 years, we currently lack objective classifications of these communities overall. Typically classified as flatwoods, bottomlands, or swamps (strict sense); we lose a lot of fine-grain detail of distinct species associations. 
 
 
 
@@ -15,7 +15,7 @@ Swamps (in the broad sense) are forested wetlands, landscapes where flooding occ
 
 
 ## Ecological Radiation of the genus *Carya*
-Hickories (*Carya spp.*) are an important genus across the eastern United States. 
+Hickories (*Carya spp.*) are an important genus across the eastern United States. While other major clades (such as oaks, pines, and junipers) have been the topic of major forestry and physiological research, the same is not true for many hickory species. 
 
 
 
