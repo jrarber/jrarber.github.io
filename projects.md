@@ -12,6 +12,12 @@ Swamps (in the broad sense) are forested wetlands, landscapes where flooding occ
 
 
 ## Functional Diversity of Arkansas Floodplain Forests
+Lowland forests encompass a wide variety of species across different community types. Eastern Arkansas historically was dominated by lowland floodplain forests, and these communities have faced large-scale loss. While these systems historically and presently hold a lot of value, there have been few investigations into the different community assemblages, and the underlying environmental factors driving these differences. 
+
+![Oak and hickory species across a wetland continuum index in eastern Arkansas](/Oak_hick_wci.png)
+
+
+
 
 
 ## Ecological Radiation of the genus *Carya*
