@@ -23,6 +23,7 @@ Lowland forests encompass a wide variety of species across different community t
 ## Ecological Radiation of the genus *Carya*
 Hickories (*Carya spp.*) are an important genus across the eastern United States. While other major clades (such as oaks, pines, and junipers) have been the topic of major forestry and physiological research, the same is not true for many hickory species. 
 
+![Hickory Diversity](/Hickory_diversity.png)
 
 
 ## `arber` R package for forest, soil, and spatial ecology
