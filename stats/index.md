@@ -27,6 +27,10 @@ Parameterics encompass a broad range of statistical tests that operate according
 ## <a href="/stats/Multisample-Hypotheses.html" title="Introduction to Multisample Hypotheses">Multisample Hypotheses</a>
 Multisample hypotheses expands upon the parametric toolkit to include comparisons of more than two groups. Thus, the ANOVA (Analysis of Variance) is the main statistical model here. The ANOVA weighs between-group variation (effect) to within-group variation (error) to determine the effect of a categorical independent variable. 
 
+### Assumptions
+
+### Limitations
+
 ### Variations on the ANOVA
 Different models of the ANOVA are used for different situations. 
 
@@ -37,7 +41,6 @@ Different models of the ANOVA are used for different situations.
 #### Model Three
 
 
-### Limitations
 
 
 
